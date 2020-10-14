@@ -1,0 +1,9 @@
+version: '3.4'
+services:
+  app:
+    image: maven:3.6.3-jdk-11
+    environment:
+      - MAVEN_OPTS=-Dmaven.repo.local=/usr/src/m2
+    volumes:
+      - .:/usr/src/app
+      - ./m2:/usr/src/m2
