@@ -10,14 +10,4 @@ spring:
 # ===============================
 server:
   port: 8700
-
-# ===============================
-# = LOGGING
-# ===============================
-logging:
-  level:
-    org:
-      springframework:
-        web: ERROR
-
         

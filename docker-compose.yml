@@ -1,6 +1,8 @@
 version: '3.4'
 services:
   app:
+    environment: 
+      SPRING_PROFILES_ACTIVE: default
     image: acme.io/template-service-java
     ports:
       - 8700
