@@ -7,4 +7,5 @@ logging:
       springframework:
         web: ERROR
 
-        
+ui.swagger:
+  enabled: true         

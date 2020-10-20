@@ -8,7 +8,16 @@ import java.time.LocalDateTime;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
+/**
+ * The Class SpringBoot Application.
+ *
+ * @author Jim.DelloStritto
+ * @project template-service-java
+ * @created Oct 17, 2020
+ * @references
+ * @credits pivotal.io
+ */
+@SpringBootApplication(scanBasePackages = {"com.l3harris.unified.sample"})
 public class RestServiceApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestServiceApplication.class);

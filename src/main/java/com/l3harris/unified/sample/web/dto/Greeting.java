@@ -1,5 +1,14 @@
-package com.l3harris.unified.sample;
+package com.l3harris.unified.sample.web.dto;
 
+/**
+ * The Class Greeting.
+ *
+ * @author Jim.DelloStritto
+ * @project template-service-java
+ * @created Oct 17, 2020
+ * @references
+ * @credits pivotal.io
+ */
 public class Greeting {
 
 	private final long id;

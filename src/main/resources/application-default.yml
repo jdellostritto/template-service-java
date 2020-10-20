@@ -7,4 +7,5 @@ logging:
       springframework:
         web: DEBUG
 
-        
+ui.swagger:
+  enabled: true        
