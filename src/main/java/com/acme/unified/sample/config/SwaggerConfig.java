@@ -1,4 +1,4 @@
-package com.l3harris.unified.sample.config;
+package com.acme.unified.sample.config;
 
 import static java.util.Objects.requireNonNull;
 import java.util.Optional;
@@ -95,7 +95,7 @@ public class SwaggerConfig {
     return new Docket(DocumentationType.SWAGGER_2).apiInfo(apiInfo())
         .useDefaultResponseMessages(false)
         .select()
-        .apis(RequestHandlerSelectors.basePackage("com.l3harris.unified.sample.web"))
+        .apis(RequestHandlerSelectors.basePackage("com.acme.unified.sample.web"))
         .paths(PathSelectors.any()).build();
     
   }

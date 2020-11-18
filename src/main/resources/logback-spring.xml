@@ -35,7 +35,7 @@
 	</appender>
 
 	<springProfile name="default">
-		<logger name="com.l3harris" additivity="false">
+		<logger name="com.acme" additivity="false">
 			<level value="DEBUG" />
 			<appender-ref ref="dailyRollingFileAppender" />
 			<appender-ref ref="consoleLocalUseOnly" />
@@ -48,7 +48,7 @@
 	</springProfile>
 
 	<springProfile name="dev">
-		<logger name="com.l3harris" additivity="false">
+		<logger name="com.acme" additivity="false">
 			<level value="INFO" />
 			<appender-ref ref="consoleAppender" />
 		</logger>
@@ -59,7 +59,7 @@
 	</springProfile>
 
 	<springProfile name="qa">
-		<logger name="com.l3harris" additivity="false">
+		<logger name="com.acme" additivity="false">
 			<level value="ERROR" />
 			<appender-ref ref="consoleAppender" />
 		</logger>
@@ -70,7 +70,7 @@
 	</springProfile>
 
 	<springProfile name="prod">
-		<logger name="com.l3harris" additivity="false">
+		<logger name="com.acme" additivity="false">
 			<level value="ERROR" />
 			<appender-ref ref="consoleAppender" />
 		</logger>

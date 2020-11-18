@@ -1,4 +1,4 @@
-package com.l3harris.unified.sample.config;
+package com.acme.unified.sample.config;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;

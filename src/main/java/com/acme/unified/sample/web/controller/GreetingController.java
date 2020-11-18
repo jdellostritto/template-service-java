@@ -1,6 +1,6 @@
-package com.l3harris.unified.sample.web.controller;
+package com.acme.unified.sample.web.controller;
 
-import com.l3harris.unified.sample.web.dto.Greeting;
+import com.acme.unified.sample.web.dto.Greeting;
 import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,4 +1,4 @@
-package com.l3harris.unified.sample.web.dto;
+package com.acme.unified.sample.web.dto;
 
 /**
  * The Class Greeting.

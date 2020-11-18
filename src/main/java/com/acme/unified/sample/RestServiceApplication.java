@@ -1,4 +1,4 @@
-package com.l3harris.unified.sample;
+package com.acme.unified.sample;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +17,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @references
  * @credits pivotal.io
  */
-@SpringBootApplication(scanBasePackages = {"com.l3harris.unified.sample"})
+@SpringBootApplication(scanBasePackages = {"com.acme.unified.sample"})
 public class RestServiceApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestServiceApplication.class);
