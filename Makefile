@@ -1,4 +1,4 @@
-.PHONY: run stop delete image package clean build kube-apply-bash kube-delete-bash kube-apply-ps kube-delete-ps image-win image-np
+.PHONY: run stop delete image package clean build kube-apply-bash kube-delete-bash kube-apply-ps kube-delete-ps image-np image-db
 #Kubernetes targets used in bash kubernetes manifests
 PROJECT ?= template-service-java
 REPO ?= acme.io
@@ -12,7 +12,10 @@ IMAGE ?= acme.io/template-service-java
 DOCKER_COMPOSE ?= docker-compose
 RUN_CONFIG ?= -f docker-compose.yml
 
+COMPOSE_PGADMIN ?= -f docker-compose.pgadmin.yml 
+COMPOSE_POSTGRES ?= -f docker-compose.postgres.yml 
 COMPILE_CONFIG ?= -f docker-compose.compile.yml
+LOCAL_CONFIG ?= -f docker-compose.local.yml
 
 COMPOSE ?= $(DOCKER_COMPOSE) $(RUN_CONFIG)
 MAVEN ?= $(COMPOSE) $(COMPILE_CONFIG) run --rm -w /usr/src/app app mvn
@@ -44,12 +47,22 @@ image: package
 image-np: 
 	docker build -t $(IMAGE):$(BUILD) .
 
+image-db:
+	$(DOCKER_COMPOSE) $(COMPOSE_POSTGRES) build
+
 run:
-	$(COMPOSE) up -d app
+	$(COMPOSE) $(LOCAL_CONFIG) $(COMPOSE_PGADMIN) $(COMPOSE_POSTGRES) up
+
+run-db:
+	$(COMPOSE) up -d db; \
+		echo; echo; \
+		echo export SPRING_DATASOURCE_URL="jdbc:postgresql://`$(DOCKER_COMPOSE) port db 5432`/sample"; \
+		echo export SPRING_DATASOURCE_USERNAME="sampleuser"; \
+		echo export SPRING_DATASOURCE_PASSWORD="samplepass";
 
 stop:
-	$(COMPOSE) stop
-	$(COMPOSE) rm -f
+	$(COMPOSE) $(LOCAL_CONFIG) $(COMPOSE_PGADMIN) $(COMPOSE_POSTGRES) stop
+	$(COMPOSE) $(LOCAL_CONFIG) $(COMPOSE_PGADMIN) $(COMPOSE_POSTGRES) rm -f
 
 delete:
 	docker image rm $(IMAGE)

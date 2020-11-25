@@ -5,19 +5,21 @@ logging:
   level:
     org:
       springframework:
-        web: ERROR
+        web: DEBUG
 
 ui.swagger:
-  enabled: true         
+  enabled: true        
 
 # ===============================
-# = postgres
+# = h2 for testing.
 # ===============================
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/sample
-    username: sampleuser
-    password: samplepass
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:db;DB_CLOSE_DELAY=-1
+    username: sa
+    password: sa
+
 
 # ===============================
 # = Spring JPA / HIBERNATE
@@ -40,4 +42,4 @@ spring:
 # Allows Hibernate to generate SQL optimized for a particular DBMS
     properties:
       hibernate:
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+        dialect: org.hibernate.dialect.H2Dialect

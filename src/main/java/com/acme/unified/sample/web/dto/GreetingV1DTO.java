@@ -9,12 +9,12 @@ package com.acme.unified.sample.web.dto;
  * @references
  * @credits pivotal.io
  */
-public class Greeting {
+public class GreetingV1DTO {
 
 	private final long id;
 	private final String content;
 
-	public Greeting(long id, String content) {
+	public GreetingV1DTO(long id, String content) {
 		this.id = id;
 		this.content = content;
 	}

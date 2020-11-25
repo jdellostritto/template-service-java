@@ -14,3 +14,5 @@ kubernetes/hub-creds.yml
 mvnw
 mvnw.cmd
 /deploy/
+/db/db-data/
+/db/pga4/

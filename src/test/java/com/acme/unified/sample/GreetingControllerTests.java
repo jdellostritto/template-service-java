@@ -16,16 +16,29 @@
 package com.acme.unified.sample;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import org.junit.jupiter.api.Test;
+import java.util.UUID;
 
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+
+import com.acme.unified.sample.dal.model.BaseGreeting;
+import com.acme.unified.sample.web.dto.GreetingV11DTO;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import org.springframework.test.web.servlet.ResultActions;
+import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
+
+import org.junit.Assert;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -34,19 +47,68 @@ public class GreetingControllerTests {
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+	private ObjectMapper objMap;
+
 	@Test
-	public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
+	public void noParamGreetingShouldReturnDefaultMessageV1() throws Exception {
 
 		this.mockMvc.perform(get("/greeting")).andDo(print()).andExpect(status().isOk())
 				.andExpect(jsonPath("$.content").value("Hello, World!"));
 	}
 
 	@Test
-	public void paramGreetingShouldReturnTailoredMessage() throws Exception {
+	public void paramGreetingShouldReturnTailoredMessageV1() throws Exception {
 
 		this.mockMvc.perform(get("/greeting").param("name", "Spring Community"))
 				.andDo(print()).andExpect(status().isOk())
 				.andExpect(jsonPath("$.content").value("Hello, Spring Community!"));
 	}
+
+
+	@Test
+	public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
+
+		ResultActions ra = this.mockMvc.perform(get("/api/1.1/greeting")
+		.contentType(MediaType.APPLICATION_JSON_VALUE)
+		.accept(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(status().isOk())
+		.andDo(MockMvcResultHandlers.print());
+		
+		MvcResult result = ra.andReturn();
+		String contentAsString = result.getResponse().getContentAsString();
+
+		BaseGreeting g = objMap.readValue(contentAsString, BaseGreeting.class);
+
+		Assert.assertEquals("Hello, World!", g.getGreeting());
+
+				
+	}
+
+	@Test
+	public void sendGreetingShouldReturnWithSentGreeting() throws Exception {
+
+		GreetingV11DTO gDTO = new GreetingV11DTO(UUID.fromString("00000000-0000-0000-0000-00000000000A"),UUID.fromString("00000000-0000-0000-0000-000000000001"), "Player One");
+		ObjectMapper mapper = new ObjectMapper();
+		String  jsonInString = mapper.writeValueAsString(gDTO);
+
+		ResultActions ra = mockMvc.perform(post("/api/1.1/greeting")
+		.contentType(MediaType.APPLICATION_JSON_VALUE)
+		.content(jsonInString)
+		.accept(MediaType.APPLICATION_JSON_VALUE))
+		.andExpect(status().isCreated())
+		.andDo(MockMvcResultHandlers.print());
+		
+		MvcResult result = ra.andReturn();
+		String contentAsString = result.getResponse().getContentAsString();
+
+		BaseGreeting g = objMap.readValue(contentAsString, BaseGreeting.class);
+
+		Assert.assertEquals("Hello, Player One!", g.getGreeting());
+
+				
+	}
+
+
 
 }
