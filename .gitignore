@@ -16,3 +16,4 @@ mvnw.cmd
 /deploy/
 /db/db-data/
 /db/pga4/
+/.vscode/
