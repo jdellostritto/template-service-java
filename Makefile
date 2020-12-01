@@ -1,10 +1,4 @@
 .PHONY: run stop delete image package clean build kube-apply-bash kube-delete-bash kube-apply-ps kube-delete-ps image-np image-db
-#Kubernetes targets used in bash kubernetes manifests
-PROJECT ?= template-service-java
-REPO ?= acme.io
-ENVIRONMENT ?= Development
-BUILD ?= latest
-REPCOUNT ?= 1
 
 # name of the image to build
 IMAGE ?= acme.io/template-service-java
@@ -47,9 +41,6 @@ image: package
 image-np: 
 	docker build -t $(IMAGE):$(BUILD) .
 
-image-db:
-	$(DOCKER_COMPOSE) $(COMPOSE_POSTGRES) build
-
 run:
 	$(COMPOSE) $(LOCAL_CONFIG) $(COMPOSE_PGADMIN) $(COMPOSE_POSTGRES) up
 
@@ -75,12 +66,11 @@ delete:
 # . to use minikube. To return to the docker-desktop kubernetes context close and reopen
 # . powershell and/or bash.
 
-
 # *NIX/Bash.
 # . Run command below first for minikube and make sure the image is available.
 # eval $(minikube -p minikube docker-env)
 kube-apply-bash:
-	REPO=$(REPO) ENVIRONMENT=$(ENVIRONMENT) BUILD=$(BUILD) REPCOUNT=$(REPCOUNT) PROJECT=$(PROJECT) envsubst < ./kubernetes/kubernetes.tmpl > ./kubernetes/$(PROJECT).yml
+	envsubst < ./kubernetes/kubernetes.tmpl > ./kubernetes/$(PROJECT).yml
 	kubectl apply -f ./kubernetes/$(PROJECT).yml
 	
 kube-delete-bash:

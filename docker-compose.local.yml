@@ -4,7 +4,7 @@ services:
     image: acme.io/template-service-java
     environment:
       SPRING_PROFILES_ACTIVE: default
-      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/sample
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/sample
       SPRING_DATASOURCE_USERNAME: sampleuser
       SPRING_DATASOURCE_PASSWORD: samplepass
     restart: on-failure

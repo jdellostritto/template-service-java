@@ -5,6 +5,7 @@ metadata:
   labels:
     app: ${PROJECT}
 spec:
+  externalTrafficPolicy: Cluster
   ports:
   - port: 80
     protocol: TCP
@@ -62,3 +63,9 @@ spec:
         env:
         - name: SPRING_PROFILES_ACTIVE
           value: ${ENVIRONMENT}
+        - name: SPRING_DATASOURCE_URL
+          value: jdbc:postgresql://postgres:5432/sample
+        - name: SPRING_DATASOURCE_USERNAME
+          value: sampleuser
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: samplepass
