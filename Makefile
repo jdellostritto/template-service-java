@@ -2,6 +2,7 @@
 
 # name of the image to build
 IMAGE ?= acme.io/template-service-java
+BUILD ?= latest
 
 DOCKER_COMPOSE ?= docker-compose
 RUN_CONFIG ?= -f docker-compose.yml
