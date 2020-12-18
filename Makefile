@@ -39,11 +39,15 @@ test:
 image: package
 	docker build -t $(IMAGE):$(BUILD) .
 
-image-np: 
-	docker build -t $(IMAGE):$(BUILD) .
-
 run:
 	$(COMPOSE) $(LOCAL_CONFIG) $(COMPOSE_PGADMIN) $(COMPOSE_POSTGRES) up
+
+image-win: 
+	docker build -t $(IMAGE):$(BUILD) .
+
+run-win:
+	$(COMPOSE) -f docker-compose.local.windows.yml up
+
 
 run-db:
 	$(COMPOSE) up -d db; \

@@ -1,15 +1,14 @@
-#*NIX 
+# LINUX 
 FROM openjdk:11.0.8-jre-slim
-
-#WINFROM winamd64/openjdk:11.0.9-jdk-nanoserver
+# WINDOWS FROM winamd64/openjdk:11.0.9-jdk-nanoserver
 
 # Expose operational port and the health port
 EXPOSE 8700 9001
 
-# make the dir we need
-# *NIX
+# Make the directory we need
+# LINUX
 RUN mkdir -p /app
-# WinRUN mkdir -p \app
+# WINDOWS RUN mkdir -p \app
 
 # change working directory
 WORKDIR /app
@@ -17,18 +16,18 @@ WORKDIR /app
 # copy jar into image
 COPY target/*.jar /app/
 
-# get our config dir
-# *NIX 
+# Get our config directory
+# LINUX 
 RUN mkdir -p /app/config
-# WinRUN mkdir -p \app\config
+# WINDOWS RUN mkdir -p \app\config
 
 # deploy properties
 COPY target/classes/application.yml /app/config
 
 # create a symlink because we have to have a single file to pass to "java -jar some.jar"
-# *NIX 
+# LINUX 
 RUN ln -s $(ls -1 *.jar) app.jar
 
-#Win CMD java -Xms128m -Xmx128m -jar template-service-java-0.0.1-SNAPSHOT.jar
-# *NIX 
+# LINUX 
 CMD java -Xms128m -Xmx128m -jar app.jar
+# WINDOWS CMD java -Xms128m -Xmx128m -jar template-service-java-0.0.2-SNAPSHOT.jar
