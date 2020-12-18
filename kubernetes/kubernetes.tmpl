@@ -64,8 +64,8 @@ spec:
         - name: SPRING_PROFILES_ACTIVE
           value: ${ENVIRONMENT}
         - name: SPRING_DATASOURCE_URL
-          value: jdbc:postgresql://postgres:5432/sample
+          value: ${DB_CONNECTION_STRING}
         - name: SPRING_DATASOURCE_USERNAME
-          value: sampleuser
+          value: ${DB_USER}
         - name: SPRING_DATASOURCE_PASSWORD
-          value: samplepass
+          value: ${DB_PWD}
