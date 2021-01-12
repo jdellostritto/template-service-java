@@ -4,7 +4,6 @@ services:
     image: acme.io/postgres
     ports:
       - 5432:5432
-      - 9001:9001
     volumes:
       - ./db/db-data:/var/lib/postgresql/data
     environment:

@@ -7,9 +7,15 @@ logging:
       springframework:
         web: ERROR
 
-ui.swagger:
-  enabled: false    
-
+# ===============================
+# = Spring Doc
+# ===============================
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+    
 # ===============================
 # = postgres
 # ===============================

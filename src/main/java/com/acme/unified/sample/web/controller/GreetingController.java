@@ -1,8 +1,8 @@
 package com.acme.unified.sample.web.controller;
 
 import com.acme.unified.sample.dal.service.GreetingRepositoryImpl;
-import com.acme.unified.sample.web.dto.GreetingV11DTO;
-import com.acme.unified.sample.web.dto.GreetingV1DTO;
+import com.acme.unified.sample.web.dto.GreetingDTOV1;
+import com.acme.unified.sample.web.dto.GreetingDTO;
 
 import com.acme.unified.sample.dal.model.BaseGreeting;
 import com.acme.unified.sample.dal.model.Greeting;
@@ -33,20 +33,24 @@ import org.springframework.web.bind.annotation.RestController;
  * @credits pivotal.io
  */
 @RestController
+@RequestMapping(value = "/api/1.0/greeting")
 public class GreetingController {
 
-	private static final Logger LOGGER = LoggerFactory.getLogger(GreetingController.class);
+	private static final Logger LOGGER = LoggerFactory.getLogger(GreetingControllerSimple.class);
 	private static final String template = "Hello, %s!";
 	private final AtomicLong counter = new AtomicLong();
 
 	@Autowired
 	GreetingRepositoryImpl gRepo;
-
-	@GetMapping("/greeting")
-	public GreetingV1DTO greeting(@RequestParam(value = "name", defaultValue = "World") String name) {
-		return new GreetingV1DTO(counter.incrementAndGet(), String.format(template, name));
-	}
-	@GetMapping("/api/1.1/greeting")
+	
+	
+	/** 
+	 * @param "name"
+	 * @param name
+	 * @return BaseGreeting
+	 */
+	@RequestMapping(method=RequestMethod.GET)
+	@ResponseStatus(HttpStatus.OK)
 	public BaseGreeting greetingGet(@RequestParam(value = "name", defaultValue = "World") String name) {
 		return new Greeting(   null, 
 										String.format(template,name),
@@ -58,17 +62,22 @@ public class GreetingController {
 										false);
 	}
 
-	@RequestMapping(value = "/api/1.1/greeting", method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	
+	/** 
+	 * @param greetingV11DTO
+	 * @return BaseGreeting
+	 */
+	@RequestMapping(method=RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ResponseStatus(HttpStatus.CREATED)
-	public BaseGreeting greetingPost(@RequestBody @Valid GreetingV11DTO greetingV11DTO) {
+	public BaseGreeting greetingPost(@RequestBody @Valid GreetingDTOV1 greetingDTOV1) {
 				
-		LOGGER.info("ACME_SAMPLE: Conversation controller method `postGreeting` called: {}", greetingV11DTO.toString());
+		LOGGER.info("ACME_SAMPLE: Conversation controller method `postGreeting` called: {}", greetingDTOV1.toString());
 		
 		Greeting _gIn = new Greeting(   null, 
-										String.format(template,greetingV11DTO.getGreeting() ),
+										String.format(template,greetingDTOV1.getGreeting() ),
 										counter.incrementAndGet(),
-										greetingV11DTO.getCompanyID(),
-										greetingV11DTO.getDivisionID(),
+										greetingDTOV1.getCompanyID(),
+										greetingDTOV1.getDivisionID(),
 										null,
 										null,
 										false);

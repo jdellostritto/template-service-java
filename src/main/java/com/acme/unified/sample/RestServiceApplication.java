@@ -22,6 +22,10 @@ public class RestServiceApplication {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RestServiceApplication.class);
 
+    
+    /** 
+     * @param args
+     */
     public static void main(String[] args) {
         
         SpringApplication.run(RestServiceApplication.class, args);

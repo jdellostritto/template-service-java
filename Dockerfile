@@ -6,7 +6,7 @@ FROM openjdk:11.0.8-jre-slim
 EXPOSE 8700 9001
 
 # Make the directory we need
-# LINUX
+# LINUX 
 RUN mkdir -p /app
 # WINDOWS RUN mkdir -p \app
 
@@ -30,4 +30,4 @@ RUN ln -s $(ls -1 *.jar) app.jar
 
 # LINUX 
 CMD java -Xms128m -Xmx128m -jar app.jar
-# WINDOWS CMD java -Xms128m -Xmx128m -jar template-service-java-0.0.2-SNAPSHOT.jar
+# WINDOWS CMD java -Xms128m -Xmx128m -jar template-service-java-0.0.3-SNAPSHOT.jar

@@ -9,20 +9,26 @@ package com.acme.unified.sample.web.dto;
  * @references
  * @credits pivotal.io
  */
-public class GreetingV1DTO {
+public class GreetingDTO {
 
 	private final long id;
 	private final String content;
 
-	public GreetingV1DTO(long id, String content) {
+	public GreetingDTO(long id, String content) {
 		this.id = id;
 		this.content = content;
 	}
 
+	/** 
+	 * @return long
+	 */
 	public long getId() {
 		return id;
 	}
-
+	
+	/** 
+	 * @return String
+	 */
 	public String getContent() {
 		return content;
 	}

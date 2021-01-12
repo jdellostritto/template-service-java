@@ -1,9 +1,9 @@
 # ===============================
 # = Locale UI.
 # ===============================
-ui:
-  swagger.info:
-    version: "1.0.0-SNAPSHOT"
+swagger:
+  info:
+    version: "0.0.3-SNAPSHOT"
     title: "template-service-java"
     description: "The Template Service API Definition"
     termsOfServiceUrl: "http://www.example.com"

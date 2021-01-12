@@ -16,7 +16,7 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-public class GreetingV11DTO {
+public class GreetingDTOV1 {
 
 	@NotNull
 	private UUID companyID;
@@ -24,7 +24,7 @@ public class GreetingV11DTO {
 	private UUID divisionID;
 	private String greeting;
 
-	public GreetingV11DTO(@NotNull UUID companyID, @NotNull UUID divisionID, String greeting) {
+	public GreetingDTOV1(@NotNull UUID companyID, @NotNull UUID divisionID, String greeting) {
 		this.companyID = companyID;
 		this.divisionID = divisionID;
 		this.greeting = greeting;

@@ -1,4 +1,4 @@
-.PHONY: run stop delete image package clean build kube-apply-bash kube-delete-bash kube-apply-ps kube-delete-ps image-np image-db
+.PHONY: run run-db stop delete image package clean build kube-apply-bash kube-delete-bash kube-apply-ps kube-delete-ps image-np image-db prune
 
 # name of the image to build
 IMAGE ?= acme.io/template-service-java
@@ -38,23 +38,15 @@ test:
 
 image: package
 	docker build -t $(IMAGE):$(BUILD) .
+# Make the image with `N`o `P`ackagaing
+image-np: 
+	docker build -t $(IMAGE):$(BUILD) .
 
 run:
 	$(COMPOSE) $(LOCAL_CONFIG) $(COMPOSE_PGADMIN) $(COMPOSE_POSTGRES) up
 
-image-win: 
-	docker build -t $(IMAGE):$(BUILD) .
-
-run-win:
-	$(COMPOSE) -f docker-compose.local.windows.yml up
-
-
 run-db:
-	$(COMPOSE) up -d db; \
-		echo; echo; \
-		echo export SPRING_DATASOURCE_URL="jdbc:postgresql://`$(DOCKER_COMPOSE) port db 5432`/sample"; \
-		echo export SPRING_DATASOURCE_USERNAME="sampleuser"; \
-		echo export SPRING_DATASOURCE_PASSWORD="samplepass";
+	$(COMPOSE) $(COMPOSE_POSTGRES) up -d postgres
 
 stop:
 	$(COMPOSE) $(LOCAL_CONFIG) $(COMPOSE_PGADMIN) $(COMPOSE_POSTGRES) stop
@@ -93,3 +85,16 @@ kube-apply-ps:
 kube-delete-ps:
 	kubectl delete -f ./kubernetes/$(PROJECT).yml
 	del .\kubernetes\$(PROJECT).yml
+
+# Windows powershell run.
+# Dockerfile must be edited for these to work.
+image-win: 
+	docker build -t $(IMAGE):$(BUILD) .
+
+run-win:
+	$(COMPOSE) -f docker-compose.local.windows.yml up
+
+# Prune
+prune:
+	docker system prune -f
+	docker volume prune -f

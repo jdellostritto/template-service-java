@@ -1,12 +1,11 @@
 package com.acme.unified.sample.config;
 
+import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 import lombok.Data;
-import springfox.documentation.service.ApiInfo;
-
-import org.springframework.stereotype.Component;
 
 /**
  * The Class SwaggerProperties.
@@ -18,14 +17,12 @@ import org.springframework.stereotype.Component;
  * @credits
  */
 
-@Component
-@PropertySource({"classpath:locale-${UI_LOCALE:en}.yml"})
-@ConfigurationProperties("ui.swagger.info")
+@Configuration
+@ConditionalOnProperty(value = "springdoc.swagger-ui.enabled", matchIfMissing = false)
+@ConfigurationProperties(prefix = "swagger.info")
+@PropertySource(value = "classpath:locale-${SPRING_PROFILES_LOCALE:en}.yml", factory = YamlPropertySourceFactory.class)
 @Data
 public class SwaggerProperties {
-
-  /** The Constant DEFAULT. */
-  private static final ApiInfo DEFAULT = ApiInfo.DEFAULT;
 
   /** The version. */
   private String version;

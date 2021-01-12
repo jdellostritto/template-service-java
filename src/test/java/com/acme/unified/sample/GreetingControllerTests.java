@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 import com.acme.unified.sample.dal.model.BaseGreeting;
-import com.acme.unified.sample.web.dto.GreetingV11DTO;
+import com.acme.unified.sample.web.dto.GreetingDTOV1;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.junit.jupiter.api.Test;
@@ -69,7 +69,7 @@ public class GreetingControllerTests {
 	@Test
 	public void noParamGreetingShouldReturnDefaultMessage() throws Exception {
 
-		ResultActions ra = this.mockMvc.perform(get("/api/1.1/greeting")
+		ResultActions ra = this.mockMvc.perform(get("/api/1.0/greeting")
 		.contentType(MediaType.APPLICATION_JSON_VALUE)
 		.accept(MediaType.APPLICATION_JSON_VALUE))
 		.andExpect(status().isOk())
@@ -88,11 +88,11 @@ public class GreetingControllerTests {
 	@Test
 	public void sendGreetingShouldReturnWithSentGreeting() throws Exception {
 
-		GreetingV11DTO gDTO = new GreetingV11DTO(UUID.fromString("00000000-0000-0000-0000-00000000000A"),UUID.fromString("00000000-0000-0000-0000-000000000001"), "Player One");
+		GreetingDTOV1 gDTO = new GreetingDTOV1(UUID.fromString("00000000-0000-0000-0000-00000000000A"),UUID.fromString("00000000-0000-0000-0000-000000000001"), "Player One");
 		ObjectMapper mapper = new ObjectMapper();
 		String  jsonInString = mapper.writeValueAsString(gDTO);
 
-		ResultActions ra = mockMvc.perform(post("/api/1.1/greeting")
+		ResultActions ra = mockMvc.perform(post("/api/1.0/greeting")
 		.contentType(MediaType.APPLICATION_JSON_VALUE)
 		.content(jsonInString)
 		.accept(MediaType.APPLICATION_JSON_VALUE))
